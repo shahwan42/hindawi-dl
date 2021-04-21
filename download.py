@@ -1,5 +1,7 @@
 import csv
 import logging
+import unicodedata
+import re
 import requests
 import typer
 from pathlib import Path
@@ -11,11 +13,31 @@ Path("downloaded_books").mkdir(parents=True, exist_ok=True)
 app = typer.Typer()
 
 
+def slugify(value, allow_unicode=False):
+    """
+    Taken from https://github.com/django/django/blob/master/django/utils/text.py
+    Convert to ASCII if 'allow_unicode' is False. Convert spaces or repeated
+    dashes to single dashes. Remove characters that aren't alphanumerics,
+    underscores, or hyphens. Convert to lowercase. Also strip leading and
+    trailing whitespace, dashes, and underscores.
+    """
+    value = str(value)
+    if allow_unicode:
+        value = unicodedata.normalize("NFKC", value)
+    else:
+        value = (
+            unicodedata.normalize("NFKD", value)
+            .encode("ascii", "ignore")
+            .decode("ascii")
+        )
+    value = re.sub(r"[^\w\s-]", "", value.lower())
+    return re.sub(r"[-\s]+", "-", value).strip("-_")
+
+
 def download_file(url, file_name):
     """Download a file using requests"""
 
-    # avoid OSError 36, filename too long
-    local_filename = f"{file_name.strip()[:137]}.pdf"
+    local_filename = f"{slugify(file_name.strip())}.pdf"
 
     with requests.get(url, stream=True) as r:
         r.raise_for_status()
