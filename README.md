@@ -1,6 +1,6 @@
 # Hindawi downloader
 
-Download all books from Hindawi organization's website in PDF format.
+Download all books from [Hindawi organization's website](https://www.hindawi.org/) in PDF format.
 
 ## Pre-requisites
 
