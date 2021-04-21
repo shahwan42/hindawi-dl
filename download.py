@@ -39,6 +39,10 @@ def download_file(url, file_name):
 
     local_filename = f"{slugify(file_name.strip())}.pdf"
 
+    # skip pre-downloaded files
+    if Path(local_filename).is_file():
+        return
+
     with requests.get(url, stream=True) as r:
         r.raise_for_status()
         with open(f"downloaded_books/{local_filename}", "wb") as f:
