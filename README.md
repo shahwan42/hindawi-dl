@@ -7,12 +7,23 @@ Download all books from Hindawi organization's website in PDF format.
 - [Python 3.8+](https://www.python.org/downloads/)
 - [Poetry](https://python-poetry.org/)
 
-## How to run
+## Installation
 
 - Open terminal inside the project's folder
 - `$ poetry install`
-- `$ python download.py`
 
-And it will download all the books (2147) sequentially. Beware, a lot of Gigabytes :))
+## Usage
 
-You'll find the downloaded books inside the [downloaded_books](./downloaded_books) folder
+- `$ python download.py all-books` download all the books (2147) sequentially. Beware, a lot of Gigabytes :))
+- `$ python download.py starting-from <line_number>` download all books starting from line number inside the [books_data.csv](books_data.csv) file, useful when the above command is interrupted
+- `$ python download.py book <book_id>` download a specific book using its id
+
+## Notes
+
+- You'll find the downloaded books inside the [downloaded_books](downloaded_books) folder (will be automatically created when you run the command)
+- [get_books_data.py](get_books_data.py) is used to get the books_data in form of (id, title, pdf_url)
+- [books_data.csv](books_data.csv) is already downloaded for you! You don't need to use the [get_books_data.py](get_books_data.py) script
+- Go ahead and use the [download.py](download.py) directly
+
+
+**Thank you** :smile:
