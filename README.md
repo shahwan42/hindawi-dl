@@ -21,9 +21,8 @@ Download all books from Hindawi organization's website in PDF format.
 ## Notes
 
 - You'll find the downloaded books inside the [downloaded_books](downloaded_books) folder (will be automatically created when you run the command)
-- [get_books_data.py](get_books_data.py) is used to get the books_data in form of (id, title, pdf_url)
-- [books_data.csv](books_data.csv) is already downloaded for you! You don't need to use the [get_books_data.py](get_books_data.py) script
-- Go ahead and use the [download.py](download.py) directly
+- [get_books_data.py](get_books_data.py) is used to get the all books data upfront in form of (id, title, pdf_url)
+- [books_data.csv](books_data.csv) is already downloaded for you! You don't need to use the [get_books_data.py](get_books_data.py) script unless you want to remove the [books_data.csv](books_data.csv) file and re-generate it again.
 
 
 **Thank you** :smile:
