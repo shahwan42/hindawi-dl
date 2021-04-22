@@ -26,7 +26,8 @@ def sanitize(filename: str):
 def download_file(url, file_name):
     """Download a file using requests"""
 
-    pdf_file = f"{download_dir}/{sanitize(file_name)}.pdf"
+    # slicing [:137] to avoid OSError 36, filename too long
+    pdf_file = f"{download_dir}/{sanitize(file_name.strip()[:137])}.pdf"
 
     # skip pre-downloaded files
     if os.path.exists(pdf_file):
