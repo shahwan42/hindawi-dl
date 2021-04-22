@@ -1,10 +1,10 @@
+import os
 import csv
 import logging
 import unicodedata
 import re
 import requests
 import typer
-from pathlib import Path
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -12,9 +12,9 @@ logger = logging.getLogger(__name__)
 
 app = typer.Typer()
 
-download_dir = Path("downloaded_books")
-if not download_dir.exists():
-    Path(download_dir).mkdir()
+download_dir = "downloaded_books"
+if not os.path.exists(download_dir):
+    os.mkdir(download_dir)
 
 
 def slugify(value, allow_unicode=False):
@@ -41,10 +41,10 @@ def slugify(value, allow_unicode=False):
 def download_file(url, file_name):
     """Download a file using requests"""
 
-    pdf_file = Path(download_dir / f"{slugify(file_name.strip())}.pdf")
+    pdf_file = f"{download_dir}/{slugify(file_name.strip())}.pdf"
 
     # skip pre-downloaded files
-    if Path(pdf_file).exists():
+    if os.path.exists(pdf_file):
         return
 
     with requests.get(url, stream=True) as r:

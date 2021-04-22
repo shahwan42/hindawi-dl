@@ -9,6 +9,7 @@ do
 	echo "id : $id"
 	echo "title : $title"
 	echo "pdf_url : $pdf_url"
+
     wget -c $pdf_url -O "كتب مؤسسة هنداوي/$title.pdf"
 done < $INPUT
 IFS=$OLDIFS
