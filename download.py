@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 app = typer.Typer()
 
-download_dir = "downloaded_books"
+download_dir = "كتب-مؤسسة-هنداوي"
 if not os.path.exists(download_dir):
     os.mkdir(download_dir)
 
@@ -41,7 +41,7 @@ def slugify(value, allow_unicode=False):
 def download_file(url, file_name):
     """Download a file using requests"""
 
-    pdf_file = f"{download_dir}/{slugify(file_name.strip())}.pdf"
+    pdf_file = f"{download_dir}/{slugify(file_name.strip(), True)}.pdf"
 
     # skip pre-downloaded files
     if os.path.exists(pdf_file):
@@ -68,7 +68,7 @@ def all_books():
                 logger.info("passing header")
             else:
                 logger.info(
-                    f"Downloading #{line_count} of 2147, id: {row[0]}, title: {row[1]}"
+                    f"Downloading #{line_count-1} of 2147, id: {row[0]}, title: {row[1]}"
                 )
                 download_file(row[2], row[1])
             line_count += 1
