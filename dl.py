@@ -12,36 +12,21 @@ logger = logging.getLogger(__name__)
 
 app = typer.Typer()
 
-download_dir = "كتب-مؤسسة-هنداوي"
+download_dir = "كتب مؤسسة هنداوي"
 if not os.path.exists(download_dir):
     os.mkdir(download_dir)
 
 
-def slugify(value, allow_unicode=False):
-    """
-    Taken from https://github.com/django/django/blob/master/django/utils/text.py
-    Convert to ASCII if 'allow_unicode' is False. Convert spaces or repeated
-    dashes to single dashes. Remove characters that aren't alphanumerics,
-    underscores, or hyphens. Convert to lowercase. Also strip leading and
-    trailing whitespace, dashes, and underscores.
-    """
-    value = str(value)
-    if allow_unicode:
-        value = unicodedata.normalize("NFKC", value)
-    else:
-        value = (
-            unicodedata.normalize("NFKD", value)
-            .encode("ascii", "ignore")
-            .decode("ascii")
-        )
-    value = re.sub(r"[^\w\s-]", "", value.lower())
-    return re.sub(r"[-\s]+", "-", value).strip("-_")
+def sanitize(filename: str):
+    filename = unicodedata.normalize("NFKC", str(filename))
+    filename = re.sub(r"[^\w\s-]", "", filename.lower())
+    return re.sub(r"[-\s]+", " ", filename).strip("-_")
 
 
 def download_file(url, file_name):
     """Download a file using requests"""
 
-    pdf_file = f"{download_dir}/{slugify(file_name.strip(), True)}.pdf"
+    pdf_file = f"{download_dir}/{sanitize(file_name)}.pdf"
 
     # skip pre-downloaded files
     if os.path.exists(pdf_file):

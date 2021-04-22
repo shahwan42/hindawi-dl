@@ -14,9 +14,9 @@ Download all books from [Hindawi organization's website](https://www.hindawi.org
 
 ## Usage
 
-- `$ python download.py all-books` download all the books (2147) sequentially. Beware, a lot of Gigabytes :))
-- `$ python download.py starting-from <line_number>` download all books starting from line number inside the [books_data.csv](books_data.csv) file, useful when the above command is interrupted
-- `$ python download.py book <book_id>` download a specific book using its id
+- `$ python dl.py all-books` download all the books (2147) sequentially. Beware, a lot of Gigabytes :))
+- `$ python dl.py starting-from <line_number>` download all books starting from line number inside the [books_data.csv](books_data.csv) file, useful when the above command is interrupted
+- `$ python dl.py book <book_id>` download a specific book using its id
 
 ## Notes
 
