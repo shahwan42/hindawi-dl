@@ -65,15 +65,15 @@ def all_books():
         line_count = 1
         for row in csv_reader:
             if line_count == 1:
-                logging.info("passing header")
+                logger.info("passing header")
             else:
-                logging.info(
+                logger.info(
                     f"Downloading #{line_count} of 2147, id: {row[0]}, title: {row[1]}"
                 )
                 download_file(row[2], row[1])
             line_count += 1
 
-        logging.info(f"Downloaded {line_count} books.")
+        logger.info(f"Downloaded {line_count} books.")
 
 
 @app.command()
@@ -88,13 +88,11 @@ def starting_from(line_number: int):
                 line_count += 1
                 continue
             else:
-                logging.info(
-                    f"Downloading #{line_count}, id: {row[0]}, title: {row[1]}"
-                )
+                logger.info(f"Downloading #{line_count}, id: {row[0]}, title: {row[1]}")
                 download_file(row[2], row[1])
                 line_count += 1
 
-        logging.info(f"Downloaded {line_count - line_number} books.")
+        logger.info(f"Downloaded {line_count - line_number} books.")
 
 
 @app.command()
@@ -105,10 +103,10 @@ def book(book_id: str):
 
         for line_count, row in enumerate(csv_reader, start=1):
             if line_count == 1:
-                logging.info("passing header")
+                logger.info("passing header")
             else:
                 if row[0] == book_id:
-                    logging.info(
+                    logger.info(
                         f"Downloading #{line_count}, id: {row[0]}, title: {row[1]}"
                     )
                     download_file(row[2], row[1])
