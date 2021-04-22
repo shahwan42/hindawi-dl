@@ -1,7 +1,5 @@
 #!/bin/bash
-# Purpose: Read Comma Separated CSV File
-# Author: Vivek Gite under GPL v2.0+
-# ------------------------------------------
+
 INPUT=books_data.csv
 OLDIFS=$IFS
 IFS=','
