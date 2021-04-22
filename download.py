@@ -9,8 +9,12 @@ from pathlib import Path
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-Path("downloaded_books").mkdir(parents=True, exist_ok=True)
+
 app = typer.Typer()
+
+download_dir = Path("downloaded_books")
+if not download_dir.exists():
+    Path(download_dir).mkdir()
 
 
 def slugify(value, allow_unicode=False):
@@ -37,18 +41,19 @@ def slugify(value, allow_unicode=False):
 def download_file(url, file_name):
     """Download a file using requests"""
 
-    local_filename = f"{slugify(file_name.strip())}.pdf"
+    pdf_file = Path(download_dir / f"{slugify(file_name.strip())}.pdf")
 
     # skip pre-downloaded files
-    if Path(local_filename).is_file():
+    if Path(pdf_file).exists():
         return
 
     with requests.get(url, stream=True) as r:
         r.raise_for_status()
-        with open(f"downloaded_books/{local_filename}", "wb") as f:
+        with open(pdf_file, "wb") as f:
             for chunk in r.iter_content(chunk_size=8192):
                 f.write(chunk)
-    return local_filename
+
+    return pdf_file
 
 
 @app.command()
